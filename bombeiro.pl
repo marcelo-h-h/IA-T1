@@ -1,4 +1,4 @@
-% Fatos teste
+% Fatos
 
 % Regras
 
