@@ -19,8 +19,11 @@ pedrinha(4,4).
 pedrinha(7,4).
 pedrinha(6,5).
 
-%extintor(X,Y)
+%parede(X,Y)
+parede(3,3)
+parede(7,5)
 
+%extintor(X,Y)
 extintor(3,2)
 
 %foguinho(X,Y).
