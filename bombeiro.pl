@@ -7,3 +7,10 @@ pular(bloquinho(X1, Y1, tipo1), bloquinho(X2, Y2, tipo2)) :- se o x2 = x1 + 2 ou
 escada(bloquinho(X1, Y1, tipo1), bloquinho(X2, Y2, tipo2)) :- se tiver uma escada em ambos os bloquinhos; se X1 = X2; se Y1 = Y2 + 1 ou Y1 = Y2 - 1;
 bloquinho_livre(bloquinho(X, Y, tipo)) :- se o tipo não contem nenhum objeto(escada, extintor, pedra, fogo, parede);
 
+
+
+
+apagar(bloquinho(X, Y, item)) :- se o bombeiro está com extintor >=1 restante
+extintor(bloquinho(X, Y, item)) :- se ainda não está com o extintor na mão
+
+
