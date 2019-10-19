@@ -1,5 +1,3 @@
-% Fatos
-
 % Regras
 
 andar(bloquinho(X1, Y1, tipo1), bloquinho(X2, Y2, tipo2)) :- se estiver livre; com escada; com extintor; com fogo apenas se estiver com extintor; 
