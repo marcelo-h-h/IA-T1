@@ -23,4 +23,17 @@ append([Head|Tail],List2,[Head|Result]):- append(Tail,List2,Result).
 retirar_elemento(Elem,[Elem|Cauda],Cauda).
 retirar_elemento(Elem,[Elem1|Cauda],[Elem1|Cauda1]) :- retirar_elemento(Elem,Cauda,Cauda1).
 
+% Busca em profundidade
+
+solucao_bp(Inicial,Solucao) :- bp([],Inicial,Solucao).
+
+bp(Caminho,Estado,[Estado|Caminho]) :- meta(Estado).
+
+bp(Caminho,Estado,Solucao) :- s(Estado,Sucessor), not(pertence(Sucessor,[Estado Caminho])), bp([Estado|Caminho],Sucessor,Solucao).
+
+concatena([ ],L,L).
+concatena([Cab|Cauda],L2,[Cab|Resultado]) :- concatena(Cauda,L2,Resultado).
+
+pertence(Elem,[Elem|_ ]).
+pertence(Elem,[ _| Cauda]) :- pertence(Elem,Cauda).
 
