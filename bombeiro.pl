@@ -7,6 +7,11 @@ tipo(bloquinho(X,Y,extintor)) :- extintor(X,Y).
 tipo(bloquinho(X,Y,foguinho)) :- foguinho(X,Y).
 tipo(bloquinho(X,Y,vazio)) :- not(pedrinha(X,Y);escada(X,Y);parede(X,Y);extintor(X,Y);foguinho(X,Y)).
 
+objeto(X, Y) :- escada(X, Y).
+objeto(X, Y) :- foguinho(X, Y).
+objeto(X, Y) :- parede(X, Y).
+objeto(X, Y) :- pedras(X, Y).
+
 objeto(X,Y) :- not(tipo(bloquinho(X,Y,vazio))).
 
 bloquinho_livre(X, Y) :- not(objeto(X,Y)).
