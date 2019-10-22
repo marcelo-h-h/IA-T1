@@ -1,6 +1,15 @@
 % Regras
 
-bloquinho_livre(bloquinho(X, Y, tipo)) :- not(objeto(X,Y))
+tipo(bloquinho(X,Y,pedrinha)) :- pedrinha(X,Y).
+tipo(bloquinho(X,Y,escada)) :- escada(X,Y).
+tipo(bloquinho(X,Y,parede)) :- parede(X,Y).
+tipo(bloquinho(X,Y,extintor)) :- extintor(X,Y).
+tipo(bloquinho(X,Y,foguinho)) :- foguinho(X,Y).
+tipo(bloquinho(X,Y,vazio)) :- not(pedrinha(X,Y);escada(X,Y);parede(X,Y);extintor(X,Y);foguinho(X,Y)).
+
+objeto(X,Y) :- not(tipo(bloquinho(X,Y,vazio))).
+
+bloquinho_livre(X, Y) :- not(objeto(X,Y)).
 
 andar_esquerda(bloquinho(X1, Y, tipo1), bloquinho(X2, Y, tipo2)) :- X2 is (X1-1), X2 > 0, not(parede(X2,Y)), not(pedras(X2,Y))
 andar_direita(bloquinho(X1, Y, tipo1), bloquinho(X2, Y, tipo2)) :- X2 is (X1+1), X2 < 11, not(parede(X2,Y)), not(pedras(X2,Y))

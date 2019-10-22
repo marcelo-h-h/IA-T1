@@ -23,7 +23,7 @@ pedrinha(6,5).
 
 %extintor(X,Y).
 extintor(7,1).
-extintor(6,1)
+extintor(6,1).
 
 %parede(X,Y).
 parede(6,1).
