@@ -33,4 +33,3 @@ objeto(X, Y) :- pedras(X, Y).
 
 
 
-
