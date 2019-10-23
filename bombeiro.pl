@@ -1,17 +1,20 @@
- % Regras
 
 %Estados
-% [[posicao_X, posicao_Y], Numero_extintores, Numero_fogos, Lista_Posicoes_fogo]
+% [[posicao_X, posicao_Y], Numero_extintores, Numero_fogos, Lista_Posicoes_fogo, Lista_Posicoes_extintores]
 
+% Regras
 % replace(Lista1,Indice,Valor,Lista2).
 % Substitui o valor Lista1[Indice] por Valor em Lista2, que é originalmente Lista2=Lista1
 replace([_|T], 0, X, [X|T]) :- !.
 replace([H|T], I, X, [H|R]):- I > 0, NI is I-1, replace(T, NI, X, R), !.
 
 %Nossa meta
-meta(Estado) :- 
-nth0(0, Estado, [PosicaoX,PosicaoY]), foguinho(PosicaoX,PosicaoY),
-nth0(2, Estado, Numero), Numero = 0.
+meta([[PosX_Final,PosY_Final], Num_Extint_Final, Num_Fogos_Final,Lista_Posicoes_fogo_Final, Lista_Posicoes_extintores_Final]) :- 
+foguinho(PosX_Final,PosY_Final),
+(Num_Extint_Final = 0; Num_Extint_Final = 1),
+Num_Fogos_Final = 0,
+Lista_Posicoes_fogo_Final = [],
+Lista_Posicoes_extintores_Final = [].
 
 tipo(bloquinho(X,Y,pedrinha)) :- pedrinha(X,Y).
 tipo(bloquinho(X,Y,escada)) :- escada(X,Y).
@@ -59,20 +62,20 @@ concatena([Cab|Cauda],L2,[Cab|Resultado]) :- concatena(Cauda,L2,Resultado).
 
 
 %solucao por busca em profundidade (bp)
-solucao_bp(Inicial,Solucao) :- bp([],Inicial,Solucao). 
+solucao_bp(Inicial,Solucao):- bp([],Inicial,Solucao). 
 %Se o primeiro estado da lista é meta, retorna a meta
-bp(Caminho,Estado,[Estado|Caminho]) :- meta(Estado).
+bp(Caminho,Estado,[Estado|Caminho]):- meta(Estado).
 %se falha, coloca o novo caminho e continua a busca
-bp(Caminho,Estado,Solucao) :- sucessor(Estado,Sucessor), not(pertence(Sucessor,[Estado|Caminho])),bp([Estado|Caminho],Sucessor,Solucao).
+bp(Caminho,Estado,Solucao):- sucessor(Estado,Sucessor), not(pertence(Sucessor,[Estado|Caminho])),bp([Estado|Caminho],Sucessor,Solucao).
 
 %Caminhar normalmente, de um bloquinho livre para outro, subindo uma escada ou pulando normalmente uma pedrinha
-sucessor(Estado, Sucessor) :- 
+sucessor(Estado, Sucessor):- 
 nth0(0,Estado,[X1,Y1]),
 caminho(bloquinho(X1,Y1,_),bloquinho(X2,Y2,_)),
-replace(Sucessor, 0, [X2,Y2], Sucessor).
+replace(Estado, 0, [X2,Y2], Sucessor).
 
 %Caminhar de um bloquinho livre ou de escada para a esquerda em um bloquinho de extintor
-sucessor(Estado, Sucessor) :-
+sucessor(Estado, Sucessor):-
 nth0(0, Estado, [X1,Y1]),
 (bloquinho_livre(X1,Y1);escada(X1,Y1)),
 X2 is (X1-1),
@@ -88,7 +91,7 @@ replace(Temp1, 1, 2, Temp2),
 replace(Temp2, 4, Nova_List_Extint, Sucessor).
 
 %Caminhar de um bloquinho livre ou de escada para a direita em um bloquinho de extintor
-sucessor(Estado, Sucessor) :-
+sucessor(Estado, Sucessor):-
 nth0(0, Estado, [X1,Y1]),
 (bloquinho_livre(X1,Y1);escada(X1,Y1)),
 X2 is (X1+1),
@@ -105,7 +108,7 @@ replace(Temp2, 4, Nova_List_Extint, Sucessor).
 
 
 % Apangando fogo e saindo para esquerda
-sucessor(Estado, Sucessor) :-
+sucessor(Estado, Sucessor):-
 nth0(0,Estado,[X1,Y]),
 nth0(1,Estado,Num_Extint),
 nth0(2,Estado,Num_Fogos),
@@ -125,7 +128,7 @@ replace(Temp2, 2, Novo_Num_Fogos, Temp3),
 replace(Temp3, 3, Nova_List_Fogos, Sucessor).
 
 % Apangando fogo e saindo para direita
-sucessor(Estado, Sucessor) :-
+sucessor(Estado, Sucessor):-
 nth0(0,Estado,[X1,Y]),
 nth0(1,Estado,Num_Extint),
 nth0(2,Estado,Num_Fogos),
@@ -143,10 +146,4 @@ replace(Estado, 0, [X2,Y], Temp1),
 replace(Temp1, 1, Novo_Num_Extint, Temp2),
 replace(Temp2, 2, Novo_Num_Fogos, Temp3),
 replace(Temp3, 3, Nova_List_Fogos, Sucessor).
-
-
-
-%Estados
-% [[posicao_X, posicao_Y], Numero_extintores, Numero_fogos, Lista_Posicoes_fogo, Lista_Posicoes_extintores]
-
 
