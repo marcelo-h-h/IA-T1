@@ -18,4 +18,9 @@ p([a, b, c, d]).
 append([],List,List).
 append([Head|Tail],List2,[Head|Result]):- append(Tail,List2,Result).
 
+% Retirar itens da lista com o predicado remove_itens
+
+retirar_elemento(Elem,[Elem|Cauda],Cauda).
+retirar_elemento(Elem,[Elem1|Cauda],[Elem1|Cauda1]) :- retirar_elemento(Elem,Cauda,Cauda1).
+
 
