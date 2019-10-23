@@ -27,11 +27,11 @@ extintor(1,4).
 
 %parede(X,Y).
 parede(6,1).
-parede(5,1).
+parede(5,3).
 
 %foguinho(X,Y).
 foguinho(10,1).
 foguinho(2,5).
-foguinho(7,5).
+foguinho(8,5).
 foguinho(10,5).
 
