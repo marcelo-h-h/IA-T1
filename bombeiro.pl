@@ -31,16 +31,16 @@ bloquinho_livre(X, Y) :- not(objeto(X,Y)).
 
 
 %Andar para a esquerda
-caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1-1), X2 > 0, not(parede(X2,Y)), not(pedras(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
+caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1-1), X2 > 0, not(parede(X2,Y)), not(pedrinha(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
 
 %Andar para a direita
-caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1+1), X2 < 11, not(parede(X2,Y)), not(pedras(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
+caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1+1), X2 < 11, not(parede(X2,Y)), not(pedrinha(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
 
-%Pular as pedras para a esquerda
-caminho(bloquinho(X1, Y, _), bloquinho(X3, Y, _)) :- X2 is (X1-1), X3 is (X1-2), X3>0, pedras(X2,Y), bloquinho_livre(X3,Y), not(fogo(X1,Y)).
+%Pular as pedrinha para a esquerda
+caminho(bloquinho(X1, Y, _), bloquinho(X3, Y, _)) :- X2 is (X1-1), X3 is (X1-2), X3>0, pedrinha(X2,Y), bloquinho_livre(X3,Y), not(fogo(X1,Y)).
 
-%Pular as pedras para a direita
-caminho(bloquinho(X1, Y, _), bloquinho(X3, Y, _)) :- X2 is (X1+1), X3 is (X1+2), X3<11, pedras(X2,Y), bloquinho_livre(X3,Y), not(fogo(X1,Y)).
+%Pular as pedrinha para a direita
+caminho(bloquinho(X1, Y, _), bloquinho(X3, Y, _)) :- X2 is (X1+1), X3 is (X1+2), X3<11, pedrinha(X2,Y), bloquinho_livre(X3,Y), not(fogo(X1,Y)).
 
 %Subir as escadas
 caminho(bloquinho(X, Y1, _), bloquinho(X, Y2, _)) :- escada(X,Y2), escada(X,Y1), Y2 is (Y1+1), Y2<6. 
@@ -124,8 +124,26 @@ replace(Temp1, 1, Novo_Num_Extint, Temp2),
 replace(Temp2, 2, Novo_Num_Fogos, Temp3),
 replace(Temp3, 3, Nova_List_Fogos, Sucessor).
 
-
-
+% Apangando fogo e saindo para direita
+sucessor(Estado, Sucessor) :-
+nth0(0,Estado,[X1,Y]),
+nth0(1,Estado,Num_Extint),
+nth0(2,Estado,Num_Fogos),
+nth0(3,Estado,List_Fogos),
+foguinho(X1,Y),
+Num_Extint > 0,
+Novo_Num_Extint is (Num_Extint-1),
+X2 is (X1+1),
+X2 < 11,
+not(pedra(X2,Y)),
+not(parede(X2,Y)),
+Novo_Num_Fogos is (Num_Fogos-1),
+delete(List_Fogos,[X1,Y],Nova_List_Fogos),
+replace(Estado, 0, [X2,Y], Temp1),
+replace(Temp1, 1, Novo_Num_Extint, Temp2),
+replace(Temp2, 2, Novo_Num_Fogos, Temp3),
+replace(Temp3, 3, Nova_List_Fogos, Sucessor).
+>>>>>>> 036de1cb58eb31f93fa2f7a66d443bd2700534f3
 
 
 %Estados
