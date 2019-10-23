@@ -5,13 +5,21 @@ inicio(1,1).
 
 %escada(X,Y), onde Y é a base da escada, que permite subir um andar.
 escada(4,1).
+escada(4,2).
 escada(9,1).
+escada(9,2).
 escada(1,2).
+escada(1,3).
 escada(7,2).
+escada(7,3).
 escada(4,3).
+escada(4,4).
 escada(10,3).
+escada(10,4).
 escada(3,4).
+escada(3,5).
 escada(9,4).
+escada(9,5).
 
 %pedrinha(X,Y), onde é permitido pular para o outro lado de X, contanto que esta posição não contenha outro objeto.
 pedrinha(2,1).
