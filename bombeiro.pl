@@ -143,7 +143,7 @@ replace(Estado, 0, [X2,Y], Temp1),
 replace(Temp1, 1, Novo_Num_Extint, Temp2),
 replace(Temp2, 2, Novo_Num_Fogos, Temp3),
 replace(Temp3, 3, Nova_List_Fogos, Sucessor).
->>>>>>> 036de1cb58eb31f93fa2f7a66d443bd2700534f3
+
 
 
 %Estados
