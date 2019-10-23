@@ -16,6 +16,8 @@ objeto(X,Y) :- not(tipo(bloquinho(X,Y,vazio))).
 
 bloquinho_livre(X, Y) :- not(objeto(X,Y)).
 
+meta :- foguinho(X,Y);
+
 %Apagar fogo na direita
 caminho(bloquinho(X1, Y, tipo1), bloquinho_livre(X2,Y), Caminho)  :- X2 is (X1+1), X2 < 11, tipo1 is extintor(X1,Y), foguinho(X2,Y). 
 
@@ -23,7 +25,7 @@ caminho(bloquinho(X1, Y, tipo1), bloquinho_livre(X2,Y), Caminho)  :- X2 is (X1+1
 caminho(bloquinho(X1, Y, tipo1), bloquinho_livre(X2,Y), Caminho)  :- X2 is (X1-1), X2 > 0, tipo1 is extintor(X1,Y), foguinho(X2,Y). 
 
 %Pegar extintor
-caminho(bloquinho(X, Y, tipo), bloquinho(X, Y, extintor), Caminho) :- tipo is not(extintor), bloquinho(X, Y, Extintor).
+caminho(bloquinho(X, Y, tipo), bloquinho(X, Y, extintor), Caminho) :- tipo is not(extintor), bloquinho(X, Y, extintor).
 
 %Andar para a direita
 caminho(bloquinho(X1, Y, tipo1), bloquinho(X2, Y, tipo2), Caminho) :- X2 is (X1+1), X2 < 11, not(parede(X2,Y)), not(pedrinha(X2,Y)), not(foguinho(X2,Y)).
