@@ -58,7 +58,13 @@ solucao_bp(Inicial,Solucao) :- bp([],Inicial,Solucao).
 %Se o primeiro estado da lista é meta, retorna a meta
 bp(Caminho,Estado,[Estado|Caminho]) :- meta(Estado).
 %se falha, coloca o novo caminho e continua a busca
-bp(Caminho,Estado,Solucao) :- caminho(Estado,Sucessor), not(pertence(Sucessor,[Estado|Caminho])),bp([Estado|Caminho],Sucessor,Solucao).
+bp(Caminho,Estado,Solucao) :- sucessor(Estado,Sucessor), not(pertence(Sucessor,[Estado|Caminho])),bp([Estado|Caminho],Sucessor,Solucao).
+
+sucessor(Estado, Sucessor) :- 
+nth0(0,Estado,[X1,Y1]),
+caminho(bloquinho(X1,Y1,Tipo1),bloquinho(X2,Y2,Tipo2)),
+ntho(0,Sucessor,[X2,Y2]).
+
 
 
 
