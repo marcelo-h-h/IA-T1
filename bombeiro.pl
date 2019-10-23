@@ -125,7 +125,25 @@ replace(Temp2, 2, Novo_Num_Fogos, Temp3),
 replace(Temp3, 3, Nova_List_Fogos, Sucessor).
 
 
-
+% Apangando fogo e saindo para direita
+sucessor(Estado, Sucessor) :-
+nth0(0,Estado,[X1,Y]),
+nth0(1,Estado,Num_Extint),
+nth0(2,Estado,Num_Fogos),
+nth0(3,Estado,List_Fogos),
+foguinho(X1,Y),
+Num_Extint > 0,
+Novo_Num_Extint is (Num_Extint-1),
+X2 is (X1+1),
+X2 < 11,
+not(pedra(X2,Y)),
+not(parede(X2,Y)),
+Novo_Num_Fogos is (Num_Fogos-1),
+delete(List_Fogos,[X1,Y],Nova_List_Fogos),
+replace(Estado, 0, [X2,Y], Temp1),
+replace(Temp1, 1, Novo_Num_Extint, Temp2),
+replace(Temp2, 2, Novo_Num_Fogos, Temp3),
+replace(Temp3, 3, Nova_List_Fogos, Sucessor).
 
 
 %Estados
