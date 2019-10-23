@@ -29,26 +29,9 @@ objeto(X,Y) :- not(tipo(bloquinho(X,Y,vazio))).
 
 bloquinho_livre(X, Y) :- not(objeto(X,Y)).
 
-<<<<<<< HEAD
-meta :- foguinho(X,Y);
-
-%Apagar fogo na direita
-caminho(bloquinho(X1, Y, tipo1), bloquinho_livre(X2,Y), Caminho)  :- X2 is (X1+1), X2 < 11, tipo1 is extintor(X1,Y), foguinho(X2,Y). 
-
-%Apagar fogo na esquerda
-caminho(bloquinho(X1, Y, tipo1), bloquinho_livre(X2,Y), Caminho)  :- X2 is (X1-1), X2 > 0, tipo1 is extintor(X1,Y), foguinho(X2,Y). 
-
-%Pegar extintor
-caminho(bloquinho(X, Y, tipo), bloquinho(X, Y, extintor), Caminho) :- tipo is not(extintor), bloquinho(X, Y, extintor).
-=======
 
 %Andar para a esquerda
-<<<<<<< HEAD
-caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1-1), X2 > 0, not(parede(X2,Y)), not(pedras(X2,Y)), not(fogo(X1,Y)), not(extintor(X2,Y)).
->>>>>>> 409d0635e68bf1639a0f7436a157dcd4d434476d
-=======
 caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1-1), X2 > 0, not(parede(X2,Y)), not(pedras(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
->>>>>>> 42ba3df2812533fd7f76e0531743809450209eec
 
 %Andar para a direita
 caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1+1), X2 < 11, not(parede(X2,Y)), not(pedras(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
@@ -142,25 +125,7 @@ replace(Temp2, 2, Novo_Num_Fogos, Temp3),
 replace(Temp3, 3, Nova_List_Fogos, Sucessor).
 
 
-% Apangando fogo e saindo para direita
-sucessor(Estado, Sucessor) :-
-nth0(0,Estado,[X1,Y]),
-nth0(1,Estado,Num_Extint),
-nth0(2,Estado,Num_Fogos),
-nth0(3,Estado,List_Fogos),
-foguinho(X1,Y),
-Num_Extint > 0,
-Novo_Num_Extint is (Num_Extint-1),
-X2 is (X1+1),
-X2 < 11,
-not(pedra(X2,Y)),
-not(parede(X2,Y)),
-Novo_Num_Fogos is (Num_Fogos-1),
-delete(List_Fogos,[X1,Y],Nova_List_Fogos),
-replace(Estado, 0, [X2,Y], Temp1),
-replace(Temp1, 1, Novo_Num_Extint, Temp2),
-replace(Temp2, 2, Novo_Num_Fogos, Temp3),
-replace(Temp3, 3, Nova_List_Fogos, Sucessor).
+
 
 
 %Estados
