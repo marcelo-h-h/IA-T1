@@ -43,11 +43,15 @@ caminho(bloquinho(X, Y, tipo), bloquinho(X, Y, extintor), Caminho) :- tipo is no
 =======
 
 %Andar para a esquerda
+<<<<<<< HEAD
 caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1-1), X2 > 0, not(parede(X2,Y)), not(pedras(X2,Y)), not(fogo(X1,Y)), not(extintor(X2,Y)).
 >>>>>>> 409d0635e68bf1639a0f7436a157dcd4d434476d
+=======
+caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1-1), X2 > 0, not(parede(X2,Y)), not(pedras(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
+>>>>>>> 42ba3df2812533fd7f76e0531743809450209eec
 
 %Andar para a direita
-caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1+1), X2 < 11, not(parede(X2,Y)), not(pedras(X2,Y)), not(fogo(X1,Y)), not(extintor(X2,Y)).
+caminho(bloquinho(X1, Y, _), bloquinho(X2, Y, _)) :- X2 is (X1+1), X2 < 11, not(parede(X2,Y)), not(pedras(X2,Y)), not(foguinho(X1,Y)), not(extintor(X2,Y)).
 
 %Pular as pedras para a esquerda
 caminho(bloquinho(X1, Y, _), bloquinho(X3, Y, _)) :- X2 is (X1-1), X3 is (X1-2), X3>0, pedras(X2,Y), bloquinho_livre(X3,Y), not(fogo(X1,Y)).
@@ -90,6 +94,23 @@ nth0(0, Estado, [X1,Y1]),
 (bloquinho_livre(X1,Y1);escada(X1,Y1)),
 X2 is (X1-1),
 X2 > 0,
+extintor(X2,Y1),
+nth0(1,Estado,Num_Extint),
+Num_Extint = 0,
+nth0(4, Estado, List_Extint),
+member([X2,Y1], List_Extint),
+delete(List_Extint, [X2,Y1], Nova_List_Extint),
+replace(Estado, 0, [X2,Y1], Temp1),
+replace(Temp1, 1, 2, Temp2),
+replace(Temp2, 4, Nova_List_Extint, Sucessor).
+
+
+%Caminhar de um bloquinho livre ou de escada para a direita em um bloquinho de extintor
+sucessor(Estado, Sucessor) :-
+nth0(0, Estado, [X1,Y1]),
+(bloquinho_livre(X1,Y1);escada(X1,Y1)),
+X2 is (X1+1),
+X2 < 11,
 extintor(X2,Y1),
 nth0(1,Estado,Num_Extint),
 Num_Extint = 0,
